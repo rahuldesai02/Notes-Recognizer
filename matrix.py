@@ -10,14 +10,25 @@ import numpy
 from numpy import array
 from os import listdir
 from PIL import Image
-inpath = os.getcwd() + '/Data/Resized_Data/Not_Notes/'
-outpath = os.getcwd() + '/Data/Resized_Data/Not_Notes/'
-Not_Notes = []
+data = []
+inpath = os.getcwd() + '/Data/Resized_Data/Notes/'
 i = 1
 all_files = listdir(inpath)
 for img_file in all_files:
     print('loading: ' + img_file)
     img = Image.open(inpath + img_file)
-    Not_Notes.append(array(img).flatten())
+    imgarray = array(img).flatten()
+    imgarray = numpy.append(imgarray,1)
+    data.append(imgarray)
     i = i + 1
-numpy.save('negative',Not_Notes)
+inpath = os.getcwd() + '/Data/Resized_Data/Not_Notes/'
+i = 1
+all_files = listdir(inpath)
+for img_file in all_files:
+    print('loading: ' + img_file)
+    img = Image.open(inpath + img_file)
+    imgarray = array(img).flatten()
+    imgarray = numpy.append(imgarray,0)
+    data.append(imgarray)
+    i = i + 1
+numpy.save('Data',data)
